@@ -7,8 +7,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Main from "./components/Main.vue";
-import Login from "./components/Login.vue";
+import { namespace } from 'vuex-class';
+import Main from "./components/main/Main.vue";
+import Login from "./components/login/Login.vue";
+import { USER } from './store/constants';
+import { UserData } from './store/user/user.types';
+
+const UserStore = namespace(USER);
 
 @Component({
   components: {
@@ -20,6 +25,8 @@ export default class App extends Vue {
   private var1: String = "janko";
 
   private hlaska: String = "pokus";
+
+  @UserStore.Getter userStatus!: any;
 
   created() {
     debugger;
@@ -33,7 +40,7 @@ export default class App extends Vue {
   }
 
   get userStatusView(): any {
-    return this.$store.getters.userStatus;
+    return this.userStatus;
   }
 }
 </script>

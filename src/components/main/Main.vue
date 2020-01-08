@@ -9,7 +9,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { UserStatus } from "../store/types";
+// import { UserStatus } from "../store/types";
+import { namespace } from 'vuex-class';
+import { USER } from '../../store/constants';
+import { UserData } from '../../store/user/user.types';
+
+const UserStore = namespace(USER);
 
 @Component({
   components: {},
@@ -24,17 +29,24 @@ import { UserStatus } from "../store/types";
 export default class Main extends Vue {
   private hlaska!: string;
 
-  get userStatusView(): UserStatus {
-    return this.$store.getters.userStatus;
+  @UserStore.Action logoutUser!: () => void;
+
+  @UserStore.Getter userStatus!: any;
+
+  @UserStore.Getter userData!: any;
+
+  get userStatusView(): any {
+    return this.userStatus;
   }
 
   get userDataView(): string {
-    const { id, name, email } = this.$store.getters.userData;
+    const { id, name, email } = this.userData;
     return `id: ${id} name: ${name} email: ${email}`;
   }
 
   logoutClick() {
-    this.$store.dispatch("logoutUser");
+  // this.$store.dispatch("logoutUser");
+    this.logoutUser();
   }
 }
 </script>

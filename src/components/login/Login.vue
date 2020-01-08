@@ -12,7 +12,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { UserStatus } from "../store/types";
+import { namespace } from 'vuex-class';
+import { USER } from '../../store/constants';
+import { UserData } from '../../store/user/user.types';
+
+const UserStore = namespace(USER);
+
+// import { UserStatus } from "../store/types";
 
 @Component({
   components: {},
@@ -28,14 +34,19 @@ export default class Login extends Vue {
 
   private loginName: string = '';
 
+  @UserStore.Action loginUser!: ({ id, name, email }: UserData) => void;
+
+  @UserStore.Getter userStatus!: any;
+
   loginClick() {
     debugger;
     if (this.loginName === 'Janko') {
-      this.$store.dispatch("loginUser", {
-        id: "idUser",
-        name: this.loginName,
-        email: "emailUser"
-      });
+      this.loginUser({ id: 'idUser', name: this.loginName, email: 'emailUser' });
+      // this.$store.dispatch("loginUser", {
+      //   id: "idUser",
+      //   name: this.loginName,
+      //   email: "emailUser"
+      // });
     }
   }
 
