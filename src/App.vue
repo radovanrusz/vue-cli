@@ -1,25 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <Main v-if="userStatusView === 'loggedIn'" msg="Welcome to Your Vue.js + TypeScript App" />
+    <Login v-else :hlaska="hlaska" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import { Component, Vue } from "vue-property-decorator";
+import Main from "./components/Main.vue";
+import Login from "./components/Login.vue";
 
 @Component({
   components: {
-    HelloWorld,
-  },
+    Main,
+    Login
+  }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private var1: String = "janko";
+
+  private hlaska: String = "pokus";
+
+  created() {
+    debugger;
+    this.var1 = "jozko";
+  }
+
+  mounted() {
+    debugger;
+    this.var1 = "eva";
+    this.hlaska = "nas vlastni text";
+  }
+
+  get userStatusView(): any {
+    return this.$store.getters.userStatus;
+  }
+}
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
