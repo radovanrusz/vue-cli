@@ -4,6 +4,15 @@
     <h2>{{userDataView}}</h2>
     <h3>{{userStatusView}}</h3>
     <button type="button" @click="logoutClick">Logout user</button>
+    <table class="table">
+      <tr v-for="(item,index) in items" v-bind:key="index">
+        <td>{{item.kmat}}</td>
+        <td>{{item.mvm1}}</td>
+        <td>{{item.mvm2}}</td>
+        <td>{{item.hmotnost}}</td>
+        <td>{{item.mnozstvi}}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -20,7 +29,7 @@ const UserStore = namespace(USER);
   components: {},
   props: {
     hlaska: {
-      required: true,
+      required: false,
       type: String
     }
   }
@@ -29,11 +38,26 @@ const UserStore = namespace(USER);
 export default class Main extends Vue {
   private hlaska!: string;
 
+  private items: any = [];
+
   @UserStore.Action logoutUser!: () => void;
 
   @UserStore.Getter userStatus!: any;
 
   @UserStore.Getter userData!: any;
+
+  created() {
+    Vue.axios.get('https://wmj-ibm-demo-app.trineckezelezarny-15729-56325c34021cf286d0e188cc291cdca2-0001.us-east.containers.appdomain.cloud/journal').then((response) => {
+      this.items = response.data;
+      debugger;
+    });
+
+    // this.items = [
+    //   { id: 1, title: "janko" },
+    //   { id: 2, title: "juray" },
+    //   { id: 3, title: "martin" }
+    // ];
+  }
 
   get userStatusView(): any {
     return this.userStatus;
