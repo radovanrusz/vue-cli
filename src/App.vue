@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <Main v-if="userStatusView === 'loggedIn'" msg="Welcome to Your Vue.js + TypeScript App" />
     <Login v-else :hlaska="hlaska" />
   </div>

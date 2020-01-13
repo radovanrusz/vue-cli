@@ -71,6 +71,7 @@ export default class Main extends Vue {
   @UserStore.Getter userData!: any;
 
   created() {
+    // Vue.axios.get('http://localhost:8080/pohyby').then((response) => {
     Vue.axios.get('https://wmj-ibm-demo-app.trineckezelezarny-15729-56325c34021cf286d0e188cc291cdca2-0001.us-east.containers.appdomain.cloud/journal').then((response) => {
       this.items = response.data;
       console.log(this.items);
@@ -100,6 +101,7 @@ export default class Main extends Vue {
 
   filtrujMvm2() {
     Vue.axios.get(`https://wmj-ibm-demo-app.trineckezelezarny-15729-56325c34021cf286d0e188cc291cdca2-0001.us-east.containers.appdomain.cloud/journal?mvm2=${this.filterMvm2}`).then((response) => {
+    // Vue.axios.get(`http://locahost:8080/pohyby?mvm2=${this.filterMvm2}`).then((response) => {
       this.items = response.data;
     });
   }
