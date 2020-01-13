@@ -5,7 +5,6 @@ import App from './App.vue';
 import store from './store';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'vue-multiselect/dist/vue-multiselect.min.css';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
