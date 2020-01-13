@@ -4,7 +4,7 @@
     <!--<h2 v-bind:class="{red: userStatusView==='loggedIn'}">{{userStatusView}}</h2>-->
     <!--<span v-if="userStatusView==='loggedIn'">nalogovany</span>-->
     <!--<h2>{{userDataView}}</h2>-->
-    <input type="text" name="login" v-model="loginName"/>
+    <input type="text" value="Janko" name="login" v-model="loginName"/>
     <button type="button" @click="loginClick">Login user</button>
     <span>{{loginName}}</span>
   </div>
@@ -32,7 +32,7 @@ const UserStore = namespace(USER);
 export default class Login extends Vue {
   private msg!: string;
 
-  private loginName: string = '';
+  private loginName: string = 'Janko';
 
   @UserStore.Action loginUser!: ({ id, name, email }: UserData) => void;
 
