@@ -134,9 +134,8 @@ export default class Main extends Vue {
   loadJournalFilterItems() {
     Vue.axios.get(process.env.VUE_APP_JOURNAL_INITIAL_FILTERS).then((response) => {
       const items:any = [];
-      debugger;
-      JSON.parse(response.data.kmat).forEach((item : string) => {
-        items.push = { title: item };
+      response.data.kmat.forEach((item: String) => {
+        items.push({ title: item });
       });
       this.optionsKmat = items;
     });
