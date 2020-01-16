@@ -45,10 +45,12 @@ import Multiselect from 'vue-multiselect';
 import { namespace } from 'vuex-class';
 import { USER } from '../../store/constants';
 import { UserData } from '../../store/user/user.types';
+import { HttpService } from '../../services/http.service';
 
 const UserStore = namespace(USER);
 const journalBaseUrl = process.env.VUE_APP_JOURNAL_URL;
 const limit = process.env.VUE_APP_LIMIT;
+const httpService = new HttpService();
 
 Vue.component('multiselect', Multiselect);
 
@@ -124,7 +126,8 @@ export default class Main extends Vue {
   }
 
   loadJournalItems() {
-    Vue.axios.get(this.generateURL).then((response) => {
+    httpService.getDirect(this.generateURL).then((response) => {
+    // Vue.axios.get(this.generateURL).then((response) => {
       this.items = response.data;
       console.log(this.items);
       debugger;
@@ -132,11 +135,12 @@ export default class Main extends Vue {
   }
 
   loadJournalFilterItems() {
-    Vue.axios.get(process.env.VUE_APP_JOURNAL_INITIAL_FILTERS).then((response) => {
+    // Vue.axios.get(process.env.VUE_APP_JOURNAL_INITIAL_FILTERS).then((response) => {
+    httpService.getDirect(process.env.VUE_APP_JOURNAL_INITIAL_FILTERS).then((response) => {
       const items:any = [];
       debugger;
-      JSON.parse(response.data.kmat).forEach((item : string) => {
-        items.push = { title: item };
+      response.data.kmat.forEach((item : String) => {
+        items.push({ title: item });
       });
       this.optionsKmat = items;
     });
