@@ -45,12 +45,13 @@ import Multiselect from 'vue-multiselect';
 import { namespace } from 'vuex-class';
 import { USER } from '../../store/constants';
 import { UserData } from '../../store/user/user.types';
-import { HttpService } from '../../services/http.service';
+import { HttpService, HttpMockService } from '../../services/http.service';
 
 const UserStore = namespace(USER);
 const journalBaseUrl = process.env.VUE_APP_JOURNAL_URL;
 const limit = process.env.VUE_APP_LIMIT;
 const httpService = new HttpService();
+const httpMockService = new HttpMockService();
 
 Vue.component('multiselect', Multiselect);
 
@@ -128,8 +129,8 @@ export default class Main extends Vue {
   loadJournalItems() {
     httpService.getDirect(this.generateURL).then((response) => {
     // Vue.axios.get(this.generateURL).then((response) => {
+    // httpMockService.getMockJournalDelay().then((response : any) => {
       this.items = response.data;
-      console.log(this.items);
       debugger;
     });
   }

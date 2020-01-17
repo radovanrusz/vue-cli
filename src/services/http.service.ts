@@ -1,5 +1,20 @@
 import { Vue } from 'vue-property-decorator';
 
+export class HttpMockService {
+  getMockDataJournal() {
+    return require('../mockData/journalMock.json');
+  }
+
+  getMockJournalDelay = () => {
+    const mockData = this.getMockDataJournal();
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(mockData);
+      }, 500);
+    });
+  }
+}
+
 export class HttpService {
   //   serverURL = 'https://domain.com/api/orders';
   protocol = 'http';
